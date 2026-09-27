@@ -21,6 +21,7 @@ the `samsung` branch.
 
 ## Before submitting to the Galaxy Store
 
-- Replace the icons in `img/` with your own. Put them in
-  `platform/mv3/samsung/img/` and the build copies them over.
+- Icons live in `platform/mv3/samsung/img/` and override the
+  upstream set. `smartublock.svg` is the master; `icon_512.png` is
+  the store listing icon.
 - Keep `LICENSE.txt` and publish this source. GPLv3 requires both.
