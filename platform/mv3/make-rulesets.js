@@ -86,7 +86,7 @@ const env = [
     ...envExtra,
 ];
 
-if ( platform === 'edge' ) {
+if ( platform === 'edge' || platform === 'samsung' ) {
     env.push('chromium');
 }
 

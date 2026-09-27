@@ -1,0 +1,31 @@
+name: Samsung Internet build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ samsung ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Samsung Internet package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          submodules: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build package
+        run: |
+          tools/make-mv3.sh samsung "$(date -u +%Y.%-m.%-d%H%M)"
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: samsung-package
+          path: dist/build/uBOLite_*.samsung.zip

@@ -26,6 +26,9 @@ for i in "$@"; do
     safari)
       PLATFORM="safari"
       ;;
+    samsung)
+      PLATFORM="samsung"
+      ;;
     +([0-9]).+([0-9]).+([0-9]))
       TAGNAME="$i"
       FULL="yes"
@@ -193,6 +196,11 @@ if [ "$PLATFORM" = "edge" ]; then
 elif [ "$PLATFORM" = "safari" ]; then
     # For Safari, we must fix the package for compliance
     node platform/mv3/safari/patch-extension.js packageDir="$UBOL_DIR"
+elif [ "$PLATFORM" = "samsung" ]; then
+    # For the Galaxy Store, rebrand the package
+    echo "*** uBOLite.samsung: Rebrand package for Samsung Internet"
+    node platform/mv3/samsung/patch-extension.js packageDir="$UBOL_DIR" \
+        brand=platform/mv3/samsung/brand.json
 fi
 
 if [ "$FULL" = "yes" ]; then
