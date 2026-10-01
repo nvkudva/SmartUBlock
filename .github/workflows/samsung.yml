@@ -3,7 +3,7 @@ name: Samsung Internet build
 on:
   workflow_dispatch:
   push:
-    branches: [ samsung ]
+    branches: [ master, samsung ]
 
 permissions:
   contents: read
