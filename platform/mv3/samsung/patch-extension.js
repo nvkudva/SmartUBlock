@@ -61,11 +61,26 @@ async function main() {
     manifest.short_name = brand.shortName;
     await writeJSON(manifestPath, manifest);
 
+    const rebrand = text => text.replace(/(?<![\/\w-])(?:uBlock Origin Lite|uBO Lite|uBlock Origin|uBlock|uBOL|uBO)(?![\w-])/gi, brand.name);
+
+    for ( const entry of await fs.readdir(packageDir) ) {
+        if ( entry.endsWith('.html') === false ) { continue; }
+        const htmlPath = `${packageDir}/${entry}`;
+        const html = await fs.readFile(htmlPath, { encoding: 'utf8' });
+        await fs.writeFile(htmlPath, rebrand(html));
+    }
+
     const localesDir = `${packageDir}/_locales`;
     for ( const locale of await fs.readdir(localesDir) ) {
         const messagesPath = path.join(localesDir, locale, 'messages.json');
         const messages = await readJSON(messagesPath).catch(( ) => null);
         if ( messages === null ) { continue; }
+        for ( const [ key, entry ] of Object.entries(messages) ) {
+            for ( const field of [ 'message', 'description' ] ) {
+                if ( typeof entry[field] !== 'string' ) { continue; }
+                entry[field] = rebrand(entry[field]);
+            }
+        }
         if ( messages.extName ) {
             messages.extName.message = brand.name;
         }

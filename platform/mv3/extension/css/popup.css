@@ -230,3 +230,45 @@ body.needReload #refresh {
 :root.desktop .tool:hover {
     background-color: var(--popup-toolbar-surface-hover);
 }
+
+/* SmartUblock look */
+#hostname {
+    font-size: 1.05em;
+    letter-spacing: 0.01em;
+    min-height: calc(var(--font-size) * 3.4);
+}
+#filteringModeText {
+    font-size: 0.95em;
+}
+#filteringModeText > span {
+    font-size: 1.15em;
+    font-weight: 600;
+}
+.toolMenu {
+    border-top: 0;
+    margin: 0.25em 0.5em 0.5em;
+    padding-top: 0;
+}
+.toolMenu > label {
+    letter-spacing: 0.04em;
+    margin-inline-start: 0.5em;
+    text-transform: uppercase;
+}
+.toolMenu > .tool {
+    align-items: center;
+    border-radius: 10px;
+    gap: 0.6em;
+    padding: 0.55em 0.6em;
+    transition: background-color 0.1s;
+}
+.toolMenu > .tool:hover {
+    background-color: var(--popup-toolbar-surface-hover);
+}
+.toolRibbon {
+    border-top: 1px solid var(--surface-2);
+    background-color: transparent;
+    padding: 0.25em 0.5em;
+}
+.toolRibbon .tool {
+    border-radius: 10px;
+}

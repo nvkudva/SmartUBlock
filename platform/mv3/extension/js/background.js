@@ -880,7 +880,7 @@ browser.permissions.onAdded.addListener((...args) => {
     });
 });
 
-browser.commands.onCommand.addListener((...args) => {
+browser.commands?.onCommand.addListener((...args) => {
     isFullyInitialized.then(( ) => {
         onCommand(...args);
     });

@@ -110,3 +110,38 @@
 .filteringModeSlider[data-level]:not(.moving) span[data-level]:hover {
     filter: brightness(0.9);
     }
+
+/* SmartUblock look: rounded track, round knob */
+.filteringModeSlider span[data-level] {
+    height: 12px;
+    transition: background-color 0.15s;
+    }
+.filteringModeSlider span[data-level]:first-of-type {
+    border-radius: 6px 0 0 6px;
+    }
+.filteringModeSlider span[data-level]:last-of-type {
+    border-radius: 0 6px 6px 0;
+    }
+[dir="rtl"] .filteringModeSlider span[data-level]:first-of-type {
+    border-radius: 0 6px 6px 0;
+    }
+[dir="rtl"] .filteringModeSlider span[data-level]:last-of-type {
+    border-radius: 6px 0 0 6px;
+    }
+.filteringModeButton {
+    border-radius: 50%;
+    transition: left 0.15s ease-out;
+    }
+.filteringModeSlider.moving .filteringModeButton {
+    transition: none;
+    }
+.filteringModeSlider[data-level] .filteringModeButton > div {
+    border: 6px solid var(--surface-1);
+    box-shadow: 0 0 0 2px var(--filtering-mode-slider-background),
+                0 2px 8px rgb(0 0 0 / 0.25);
+    transform: scale(0.62);
+    }
+.filteringModeSlider[data-level]:not([data-level="0"]) .filteringModeButton > div {
+    box-shadow: 0 0 0 2px var(--accent-surface-1),
+                0 2px 8px rgb(0 0 0 / 0.25);
+    }

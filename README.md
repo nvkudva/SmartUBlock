@@ -1,189 +1,70 @@
-[![Badge Commits]][Commit Rate]
-[![Badge Issues]][Issues]
-[![Badge Localization]][Crowdin]
-[![Badge License]][License]
-[![Badge NPM]][NPM]
-[![Badge Mozilla]][Mozilla]
-![Badge Chrome]
-[![Badge Edge]][Edge]
-
-***
-
 <h1 align="center">
 <sub>
-<img src="https://github.com/gorhill/uBlock/blob/master/src/img/ublock.svg" height="38" width="38">
+<img src="platform/mv3/samsung/img/smartublock.svg" height="38" width="38">
 </sub>
-uBlock Origin (uBO)
+SmartUblock
 </h1>
 
-| Browser   | Install from ... | Status |
-| :-------: | ---------------- | ------ |
-| <img src="https://github.com/user-attachments/assets/b0136512-56a5-4856-8c50-4971c957a24f" alt="Get uBlock Origin for Firefox"> | <a href="https://addons.mozilla.org/addon/ublock-origin/">Firefox Add-ons</a> | [uBO works best on Firefox](https://github.com/gorhill/uBlock/wiki/uBlock-Origin-works-best-on-Firefox) |
-| <img src="https://github.com/user-attachments/assets/3a7569f8-688b-4eb1-a643-8d0fe173aefe" alt="Get uBlock Origin for Microsoft Edge"> | <a href="https://microsoftedge.microsoft.com/addons/detail/ublock-origin/odfafepnkmbhccpbejgmiehpchacaeak">Edge Add-ons</a> | <a href="https://blogs.windows.com/msedgedev/2026/08/07/moving-the-microsoft-edge-extensions-ecosystem-forward-with-manifest-version-3/">"Moving the Microsoft Edge extensions ecosystem forward with Manifest Version 3"</a>: "Beginning in August 2026, Microsoft Edge will start the consumer transition away from Manifest Version 2 (MV2) extensions and toward MV3. Our goal is to complete the consumer transition by the end of 2026, with enterprise deprecation following in early 2027." |
-| <img src="https://github.com/user-attachments/assets/938f080c-fe64-4e48-8b89-4bfceabb56e6" alt="Get uBlock Origin for Opera"> | <a href="https://addons.opera.com/extensions/details/ublock/">Opera Add-ons</a> |
-| <img src="https://github.com/user-attachments/assets/5463ef88-873b-4516-8514-5277664cfde7" alt="Get uBlock Origin for Chromium"> | Removed | <a href="https://developer.chrome.com/docs/extensions/develop/migrate/mv2-deprecation-timeline#aug_31st_2026_all_remaining_manifest_v2_extensions_removed_from_the_chrome_web_store">"Manifest V2 support timeline"</a>: "Aug 31st 2026: All remaining Manifest V2 extensions removed from the Chrome Web Store"<br><a href="https://github.com/uBlockOrigin/uBlock-issues/wiki/About-Google-Chrome's-%22This-extension-may-soon-no-longer-be-supported%22">About Google Chrome's "This extension may soon no longer be supported"</a> |
-| <img src="https://github.com/user-attachments/assets/2e9037c4-836d-44c1-a716-ba96e89daaff" alt="Get uBlock Origin for Thunderbird"> | <a href="https://addons.thunderbird.net/thunderbird/addon/ublock-origin/">Thunderbird Add-ons</a> | [No longer updated and stuck at 1.49.2.](https://github.com/uBlockOrigin/uBlock-issues/issues/2928) Later versions require "GitHub - Releases". |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg" height="50" alt="Get uBlock Origin through GitHub"> | <a href="https://github.com/gorhill/uBlock/releases">GitHub - Releases</a> | Stable and development versions on Firefox, Chromium MV2, and Thunderbird. Must be placed manually into web browsers; the Chromium and Thunderbird versions usually won't auto-update.
+A lightweight ad and tracker blocker for **Samsung Internet** on Android, built
+on [uBlock Origin Lite](https://github.com/uBlockOrigin/uBOL-home) (uBOL).
 
-<h3> Related: 
-<sub>
-<img src="https://github.com/gorhill/uBlock/blob/master/platform/mv3/extension/img/ublock.svg" height="24" width="24">
-</sub>
-<a href="https://github.com/uBlockOrigin/uBOL-home">uBlock Origin Lite</a>
-</h3>
+SmartUblock is a Manifest V3 extension. It uses the browser's
+`declarativeNetRequest` API, so it needs no broad background processing and
+stays light on CPU and memory.
 
+## Credits
 
-***
+SmartUblock is a fork of **uBlock Origin Lite**, created by
+[Raymond Hill (gorhill)](https://github.com/gorhill) and the
+[uBlock Origin contributors](https://github.com/gorhill/uBlock/graphs/contributors).
+The blocking engine, filter compilation and most of the code are their work.
+The filter lists come from [uAssets](https://github.com/uBlockOrigin/uAssets),
+[EasyList](https://easylist.to/), [EasyPrivacy](https://easylist.to/),
+[Peter Lowe's list](https://pgl.yoyo.org/adservers/), the
+[URLhaus](https://urlhaus.abuse.ch/) malware list and AdGuard.
 
-uBlock Origin (uBO) is a CPU and memory-efficient [wide-spectrum content blocker][Blocking] for Chromium and Firefox. It blocks ads, trackers, coin miners, popups, annoying anti-blockers, malware sites, etc., by default using [EasyList][EasyList], [EasyPrivacy][EasyPrivacy], [Peter Lowe's Blocklist][Peter Lowe's Blocklist], [Online Malicious URL Blocklist][Malicious Blocklist], and uBO [filter lists][uBO Filters]. There are many other lists available to block even more. Hosts files are also supported. uBO uses the EasyList filter syntax and [extends][Extended Syntax] the syntax to work with custom rules and filters.
+SmartUblock is not affiliated with or endorsed by uBlock Origin or its author.
+If you can, use the original: [uBlock Origin](https://github.com/gorhill/uBlock)
+on Firefox and [uBOL](https://github.com/uBlockOrigin/uBOL-home) on Chromium.
 
-You may easily unselect any preselected filter lists if you think uBO blocks too much. For reference, Adblock Plus installs with only EasyList, ABP filters, and Acceptable Ads enabled by default.
+## What differs from uBOL
 
-It is important to note that using a blocker is **NOT** [theft]. Do not fall for this creepy idea. The _ultimate_ logical consequence of `blocking = theft` is the criminalization of the inalienable right to privacy.
+- Samsung Internet build target (`samsung` platform in `tools/make-mv3.sh`).
+- Manifest without `offscreen` and keyboard `commands`. `userScripts` is an
+  optional permission. Samsung Internet may not expose these APIs.
+- Custom and imported filter lists need `chrome.offscreen`. Without it, only
+  the bundled rulesets run.
+- Rebranded name, author and icons (`platform/mv3/samsung/brand.json`,
+  `platform/mv3/samsung/img/`).
+- Refreshed popup look: rounded filtering-mode slider and round knob.
 
-Ads, "unintrusive" or not, are just the visible portion of the privacy-invading means entering your browser when you visit most sites. **uBO's primary goal is to help users neutralize these privacy-invading methods** in a way that welcomes those users who do not wish to use more technical means.
+## Build
 
-***
+    tools/make-mv3.sh samsung <version>
 
-* [Documentation](#documentation)
-* [Installation](#installation)
-  * [Firefox](#firefox)
-  * [Chromium](#chromium)
-  * [Thunderbird](#thunderbird)
-  * [All Programs](#all-programs)
-  * [Enterprise Deployment](#enterprise-deployment)
-* [Release History](#release-history)
-* [Translations](#translations)
-* [About](#about)
+The package lands in `dist/build/uBOLite_<version>.samsung.zip`. The unpacked
+extension is in `dist/build/uBOLite.samsung/`. The version must follow the
+Chromium rule: up to four numbers, each at most 65535, no leading zeros.
 
-## Documentation
+The `Samsung Internet build` GitHub workflow builds the same package on each
+push to the `samsung` branch.
 
-<table>
-    <thead>
-        <tr>
-            <th>Basic Mode</th>
-            <th>Advanced Mode</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>The <a href="https://github.com/gorhill/uBlock/wiki/Quick-guide:-popup-user-interface">simple popup user interface</a> for an install-it-and-forget-it type of installation that is configured optimally by default.</td>
-            <td>The <a href="https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-quick-guide">advanced popup user interface</a> includes a point-and-click firewall that is configurable on a per-site basis.</td>
-        </tr>
-        <tr>
-            <td align="center" valign="top"><a href="https://github.com/gorhill/uBlock/wiki/Quick-guide:-popup-user-interface"><img src="https://user-images.githubusercontent.com/585534/232531044-c4ac4dd5-0b60-4c1e-aabb-914be04b846c.png"/></a></td>
-            <td align="center" valign="top"><a href="https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-quick-guide"><img src="https://user-images.githubusercontent.com/585534/232531439-a8f81cc3-6622-45c4-8b32-7348cecf6e98.png"/></a></td>
-        </tr>
-    </tbody>
-</table>
+## Test
 
-Visit the [Wiki][Wiki] for documentation.
+- **Desktop Chrome:** open `chrome://extensions`, turn on Developer mode, click
+  "Load unpacked" and pick `dist/build/uBOLite.samsung`. Open the service
+  worker console and check for errors.
+- **Samsung Internet:** turn on developer mode in the browser's settings and
+  sideload the zip, or submit it to the Galaxy Store as a test release.
 
-For support, questions, or help, visit [/r/uBlockOrigin][Reddit].
+See [platform/mv3/samsung/README.md](platform/mv3/samsung/README.md) for more.
 
-## Installation
+## License
 
-[Required Permissions][Permissions]
+GNU General Public License v3.0. See [LICENSE.txt](LICENSE.txt).
 
-#### Firefox
+Copyright (c) 2014-present Raymond Hill and uBlock Origin contributors
+(original work). Copyright (c) 2026-present nvkudva (SmartUblock changes).
 
-[Firefox Add-ons][Mozilla]
-
-[Development Builds][Beta]
-
-uBO [works best][Works Best] on Firefox and is available for desktop and Android versions.
-
-#### Chromium
-
-Chrome Web Store: Removed on 2026-08-31
-
-[Microsoft Edge Add-ons][Edge] (Published by [Nicole Rolls][Nicole Rolls] until version 1.62. Ownership transfer at version 1.64.)
-
-[Opera Add-ons][Opera]
-
-uBO should be compatible with any Chromium-based browser.
-
-#### Thunderbird
-
-[Thunderbird Add-ons][Thunderbird]
-
-In Thunderbird, uBlock Origin does not affect emails, just feeds.
-
-#### All Programs
-
-Do **NOT** use uBO with any other content blocker. uBO [performs][Performance] as well as or better than most popular blockers. Other blockers can prevent uBO's privacy or anti-blocker-defusing features from working correctly.
-
-[Manual Installation][Manual Installation]
-
-#### Enterprise Deployment
-
-[Deploying uBO][Deployment]
-
-## Release History
-
-[Releases Page][Releases]
-
-## Translations
-
-Help translate uBO via [Crowdin][Crowdin].
-
-## About
-
-[Manifesto][Manifesto]
-
-[Privacy Policy][Privacy Policy]
-
-[GPLv3 License][License]
-
-Free. Open-source. For users by users. No donations sought.
-
-If you ever want to contribute something, think about the people working hard to maintain the filter lists you are using, which are available to use by all for free.
-
-
-<!----------------------------------------------------------------------------->
-
-[Peter Lowe's Blocklist]: https://pgl.yoyo.org/adservers/
-[Malicious Blocklist]: https://gitlab.com/malware-filter/urlhaus-filter#malicious-url-blocklist
-[Performance]: https://www.debugbear.com/blog/chrome-extensions-website-performance#the-impact-of-ad-blocking-on-website-performance
-[EasyPrivacy]: https://easylist.to/#easyprivacy
-[Thunderbird]: https://addons.thunderbird.net/thunderbird/addon/ublock-origin/
-[EasyList]: https://easylist.to/#easylist
-[Mozilla]: https://addons.mozilla.org/addon/ublock-origin/
-[Crowdin]: https://crowdin.com/project/ublock
-[Reddit]: https://www.reddit.com/r/uBlockOrigin/
-[Theft]: https://x.com/LeaVerou/status/518154828166725632
-[Opera]: https://addons.opera.com/extensions/details/ublock/
-[Edge]: https://microsoftedge.microsoft.com/addons/detail/ublock-origin/odfafepnkmbhccpbejgmiehpchacaeak
-[NPM]: https://www.npmjs.com/package/@gorhill/ubo-core
-
-[Manifesto]: MANIFESTO.md
-[License]: LICENSE.txt
-
-[Nicole Rolls]: https://github.com/nicole-ashley
-
-<!---------------------------------[ Internal ]-------------------------------->
-
-[Manual Installation]: https://github.com/gorhill/uBlock/tree/master/dist#install
-[Extended Syntax]: https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#extended-syntax
-[Privacy Policy]: https://github.com/gorhill/uBlock/wiki/Privacy-policy
-[uBO Filters]: https://github.com/uBlockOrigin/uAssets/tree/master/filters
-[Permissions]: https://github.com/gorhill/uBlock/wiki/Permissions
-[Commit Rate]: https://github.com/gorhill/uBlock/commits/master
-[Works Best]: https://github.com/gorhill/uBlock/wiki/uBlock-Origin-works-best-on-Firefox
-[Deployment]: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin
-[Blocking]: https://github.com/gorhill/uBlock/wiki/Blocking-mode
-[Releases]: https://github.com/gorhill/uBlock/releases
-[Issues]: https://github.com/uBlockOrigin/uBlock-issues/issues
-[Beta]: https://github.com/gorhill/uBlock/blob/master/dist/README.md#for-beta-version
-[Wiki]: https://github.com/gorhill/uBlock/wiki
-
-<!----------------------------------[ Badges ]--------------------------------->
-
-[Badge Localization]: https://d322cqt584bo4o.cloudfront.net/ublock/localized.svg
-[Badge Commits]: https://img.shields.io/github/commit-activity/m/gorhill/ublock?label=Commits
-[Badge Mozilla]: https://img.shields.io/amo/rating/ublock-origin?label=Firefox
-[Badge License]: https://img.shields.io/badge/License-GPLv3-blue.svg
-[Badge Chrome]: https://img.shields.io/chrome-web-store/rating/cjpalhdlnbpafiamejdnhcphjbkeiagm?label=Chrome
-[Badge Edge]: https://img.shields.io/badge/dynamic/json?label=Edge&color=brightgreen&query=%24.averageRating&suffix=%2F%35&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fodfafepnkmbhccpbejgmiehpchacaeak
-[Badge Issues]: https://img.shields.io/github/issues/uBlockOrigin/uBlock-issues
-[Badge NPM]: https://img.shields.io/npm/v/@gorhill/ubo-core
+The source of every published build must stay available under the same
+license.
